@@ -1,5 +1,6 @@
 import { useRecoilValue } from "recoil";
 import { cartItemsList } from "../store/atoms/cart";
+import Title from "./Title";
 
 const CartTotal = () => {
 
@@ -11,11 +12,7 @@ const CartTotal = () => {
         return(
             <div className="flex flex-col gap-10">
                 <div className="flex flex-col gap-6">
-                    <div className='flex flex-wrap items-center gap-2'>
-                        <div className='text-3xl text-gray-500'>CART</div>
-                        <div className='text-3xl'>TOTALS</div>
-                        <hr className='w-11 border-0 bg-slate-600 h-[2px]' />
-                    </div>
+                    <Title firstName="CART" secondName="TOTAL"/>
                     <div className="flex flex-col text-sm">
                         <div className="flex flex-row justify-between py-2 border-b">
                             <div>Subtotal</div>
