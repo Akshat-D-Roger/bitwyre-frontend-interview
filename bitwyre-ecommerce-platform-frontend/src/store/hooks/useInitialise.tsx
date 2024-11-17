@@ -1,16 +1,19 @@
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import loginAtom, { logout } from "../atoms/login.ts";
 import {cartAtom} from "../atoms/cart";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
 import * as jose from 'jose'
+import { preloadVideo } from "@remotion/preload";
+import { preloadVidsAtom } from "../atoms/vidsToPreload";
 
 
 export default function useInitialise(){
     const [login, setLogin] = useRecoilState(loginAtom);
     const setCartItems = useSetRecoilState(cartAtom);
     const navigate = useNavigate();
+    const preloadVids = useRecoilValue(preloadVidsAtom);
 
     async function checkToken(){
         if(!login.isLogin){
@@ -54,4 +57,10 @@ export default function useInitialise(){
             setCartItems({});
         }
     }, [login.isLogin])
+
+    useEffect(()=>{
+        for(const vid in preloadVids){
+          preloadVideo(preloadVids[vid]);
+        }
+    }, [])
 }

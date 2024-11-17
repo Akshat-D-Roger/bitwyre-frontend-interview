@@ -1,10 +1,8 @@
-import { preloadVideo } from "@remotion/preload";
 import { useEffect, useRef } from "react";
 import { productsType } from "../../assets/assets";
 import { useRecoilState, useRecoilValue, useResetRecoilState } from "recoil";
 import { allOrSearchedProducts } from "../atoms/search";
 import { DefaultFilters, filteredItemsAtom, FilterKeys, maxPriceAtom, minPriceAtom, selectedFilterAtom, selectedSortAtom, sortedItemsAtom, SortType } from "../atoms/filterAndSort";
-import { preloadVidsAtom } from "../atoms/vidsToPreload";
 
 export default function useCollections() {
     const products = useRecoilValue<productsType[]>(allOrSearchedProducts);
@@ -20,8 +18,6 @@ export default function useCollections() {
 
     const minPrice = useRecoilValue(minPriceAtom);
     const maxPrice = useRecoilValue(maxPriceAtom)
-
-    const preloadVids = useRecoilValue(preloadVidsAtom);
   
     //////////////////////////////////////////////////////////////////////////////////////////////////
   
@@ -83,13 +79,7 @@ export default function useCollections() {
       }
       sortProducts();
      }, [selectedSort,filteredItems])
-  
-     useEffect(()=>{
-      for(const vid in preloadVids){
-        preloadVideo(preloadVids[vid]);
-      }
-     }, [])
-
+ 
      return {sortedItems};
   
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
