@@ -5,13 +5,15 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { cartAtom } from '../store/atoms/cart';
 import loginAtom from '../store/atoms/login';
 import { toast } from 'react-toastify';
+import darkModeAtom from '../store/atoms/darkMode';
 
 const ProductInformation = ({product}:{product:productsType}) => {
     const [selectedSize, setSelectedSize] = useState<string>('');
     const [cartItems, setCartItems] = useRecoilState(cartAtom);
     const isLogin = useRecoilValue(loginAtom);
     const currency:string = '$';
-    const productId = product._id
+    const productId = product._id;
+    const darkMode = useRecoilValue(darkModeAtom);
 
     function addToCart(){
         if(!product || !productId)
@@ -40,7 +42,7 @@ const ProductInformation = ({product}:{product:productsType}) => {
       }
 
   return (
-    <div className="flex-1 sm:pt-[1rem] flex flex-col gap-[1rem] sm:ml-[2rem]">
+    <div className={`flex-1 sm:pt-[1rem] flex flex-col gap-[1rem] sm:ml-[2rem] ${darkMode && 'text-white'}`}>
         <div className="font-medium text-2xl">{product.name}</div>
         <div className="flex flex-row items-center">
             {[...Array(4)].map((_, index) => (<img key={index} src={assets.star_icon} className="w-[15px] h-[15px]" />))}
@@ -52,7 +54,7 @@ const ProductInformation = ({product}:{product:productsType}) => {
         <div className="flex flex-row items-center pt-[1.5rem]">
             <div>Select Size</div>
             <div className="ml-[2rem] flex flex-row gap-2">
-                {product.sizes.map((size, index) => (<button key={index} className={`p-2 text-l border bg-gray-300 px-4 ${selectedSize === size && "border-red-500"} `} onClick={() => (setSelectedSize(size))}>{size}</button>))}
+                {product.sizes.map((size, index) => (<button key={index} className={`p-2 text-l border bg-gray-300 px-4 text-black ${selectedSize === size && "border-red-500"} `} onClick={() => (setSelectedSize(size))}>{size}</button>))}
             </div>
         </div>
         <div className="mt-[1rem]">

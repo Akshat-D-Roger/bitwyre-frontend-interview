@@ -1,9 +1,11 @@
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { DefaultFilters, FilterKeys, selectedFilterAtom } from "../store/atoms/filterAndSort.ts";
+import darkModeAtom from "../store/atoms/darkMode.ts";
 
 const FilterSubcomponent = ({ filterType, values }:{filterType:FilterKeys, values:string[]}) => {
 
     const [selectedFilter, setSelectedFilter] = useRecoilState(selectedFilterAtom);
+    const darkMode = useRecoilValue(darkModeAtom);
 
     function handleFilterChange(value:string) {
         setSelectedFilter(prev => {
@@ -23,11 +25,11 @@ const FilterSubcomponent = ({ filterType, values }:{filterType:FilterKeys, value
 
     return (
         <div className={`border-2 py-4 px-6`}>
-            <div className='font-medium'>{filterType.toUpperCase()}</div>
+            <div className={`font-medium ${darkMode && 'text-white'}`}>{filterType.toUpperCase()}</div>
             <div className='mt-[1rem] flex flex-col gap-4 items-start'>
                 {values.map((value:string, index:number) => {
                     return (
-                        <label key={index} className='flex flex-row gap-3 items-center text-sm text-gray-500'>
+                        <label key={index} className={`flex flex-row gap-3 items-center text-sm text-gray-500 ${darkMode && 'text-stone-400'}`}>
                             <input type="checkbox" onChange={() => handleFilterChange(value)} checked={selectedFilter[filterType].includes(value)} />
                             {value}
                         </label>

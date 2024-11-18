@@ -1,6 +1,7 @@
-import { useSetRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { maxPriceAtom, minPriceAtom } from '../store/atoms/filterAndSort';
 import { useRef, useState } from 'react';
+import darkModeAtom from '../store/atoms/darkMode';
 
 const PriceRangeFilter = () => {
     const setMinPrice = useSetRecoilState(minPriceAtom);
@@ -11,6 +12,7 @@ const PriceRangeFilter = () => {
     //const timer:NodeJS.Timeout; cannot use this as on every render when input changes, the timer will reinitialise
     const timer1 = useRef<NodeJS.Timeout | null>(null);
     const timer2 = useRef<NodeJS.Timeout | null>(null);
+    const darkMode = useRecoilValue(darkModeAtom);
 
 
     const handleMinChange = (e:React.ChangeEvent<HTMLInputElement>) => {
@@ -30,16 +32,16 @@ const PriceRangeFilter = () => {
     };
 
     return (
-        <div className={`border-2 py-4 px-6`}>
-            <div className='font-medium'>Price Range</div>
+        <div className={`border-2 py-4 px-6 ${darkMode && 'text-white'}`}>
+            <div className={`font-medium`}>Price Range</div>
             <div className='mt-[1rem] flex flex-col gap-4 items-start'>
                 <label className='flex flex-col flex-nowrap w-full'>
                     Min
-                    <input type="text" placeholder="0" value={inputMinPrice} onChange={handleMinChange} className="border border-black p-2 w-full rounded-md"/>
+                    <input type="text" placeholder="0" value={inputMinPrice} onChange={handleMinChange} className="border border-black p-2 w-full rounded-md text-black"/>
                 </label>
                 <label className='flex flex-col flex-nowrap w-full'>
                     Max
-                    <input type="text" placeholder="10000" value={inputMaxPrice} onChange={handleMaxChange} className="border border-black p-2 w-full rounded-md"/>
+                    <input type="text" placeholder="10000" value={inputMaxPrice} onChange={handleMaxChange} className="border border-black p-2 w-full rounded-md text-black"/>
                 </label>
             </div>
         </div>

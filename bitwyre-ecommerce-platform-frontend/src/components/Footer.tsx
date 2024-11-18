@@ -1,6 +1,9 @@
+import { useRecoilValue } from 'recoil'
 import {assets} from '../assets/assets'
+import darkModeAtom from '../store/atoms/darkMode'
 
 const Footer = () => {
+    const darkMode = useRecoilValue(darkModeAtom)
   return (
     <div className={`w-full`}>
         <div className="w-full flex flex-col sm:flex-row sm:justify-between gap-4 sm:gap-[4rem] py-[3rem] border-b-2">
@@ -8,17 +11,17 @@ const Footer = () => {
                 <div>
                     <img className="w-[8rem]" src={assets.logo} alt="logo" />
                 </div>
-                <div className='w-2/3'>This website is made as a part of bitwyre frontend interview. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod totam at provident saepe tempore?</div>
+                <div className={`w-2/3 ${darkMode && 'text-stone-400'}`}>This website is made as a part of bitwyre frontend interview. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod totam at provident saepe tempore?</div>
             </div>
-            <div className="flex flex-col gap-1 text-sm text-gray-500">
-                <div className="text-black text-2xl font-medium pb-3">COMPANY</div>
+            <div className={`flex flex-col gap-1 text-sm ${darkMode ? 'text-stone-400' : 'text-gray-500'}`}>
+                <div className={`text-black text-2xl font-medium pb-3 ${darkMode && 'text-white'}`}>COMPANY</div>
                 <div>Home</div>
                 <div>About us</div>
                 <div>Delivery</div>
                 <div>Privacy Policy</div>
             </div>
-            <div className="flex flex-col gap-1 text-sm text-gray-500">
-                <div className="text-black text-2xl font-medium pb-3">GET IN TOUCH</div>
+            <div className={`flex flex-col gap-1 text-sm ${darkMode ? 'text-stone-400' : 'text-gray-500'}`}>
+                <div className={`text-black text-2xl font-medium pb-3 ${darkMode && 'text-white'}`}>GET IN TOUCH</div>
                 <div>+916375095901</div>
                 <div>kakshat23121999@gmail.com</div>
                 <a target="_blank" className="hover:text-cyan-400" href="https://www.instagram.com/account.akshat/">ig-account.akshat</a>

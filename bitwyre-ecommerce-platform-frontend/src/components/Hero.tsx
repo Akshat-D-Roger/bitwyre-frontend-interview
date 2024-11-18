@@ -1,10 +1,15 @@
+import { useRecoilValue } from 'recoil'
 import MyImage from '../assets/adidas_hero_img.avif'
 import { NavLink } from 'react-router-dom'
+import darkModeAtom from '../store/atoms/darkMode'
+
  const Hero = () => {
+    const darkMode = useRecoilValue(darkModeAtom);
+
   return (
-    <NavLink to="/collections" className='border-[1px] border-black w-full flex flex-col sm:flex-row'>
+    <NavLink to="/collections" className={`border-[1px] border-black w-full flex flex-col sm:flex-row ${darkMode && 'border-white'}`}>
         <div className='flex flex-col items-center justify-center w-full sm:w-1/3 py-10 sm:py-0 '>
-            <div className='flex flex-col font-semibold text-slate-600'>
+            <div className={`flex flex-col font-semibold text-slate-600 ${darkMode && 'text-stone-300'}`}>
                 <div className='flex gap-2 items-center'>
                     <hr className='w-11 h-[2px] bg-slate-600 border-0 '/>
                     <p className='text-[1rem] whitespace-nowrap'>OUR BESTSELLERS</p>

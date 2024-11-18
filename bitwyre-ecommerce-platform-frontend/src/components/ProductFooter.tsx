@@ -1,9 +1,13 @@
+import { useRecoilValue } from "recoil"
+import darkModeAtom from "../store/atoms/darkMode"
+
 const ProductFooter = () => {
+  const darkMode = useRecoilValue(darkModeAtom);
   return (
     <div>
         <div className="flex flex-row w-full sm:w-auto">
-          <div className="p-2 px-4 text-sm font-semibold border w-[50%] sm:w-auto text-center">Description</div>
-          <div className="p-2 px-4 text-sm border w-[50%] sm:w-auto text-center">Reviews(122)</div>
+          <div className={`p-2 px-4 text-sm font-semibold border w-[50%] sm:w-auto text-center ${darkMode && 'text-white'}`}>Description</div>
+          <div className={`p-2 px-4 text-sm border w-[50%] sm:w-auto text-center ${darkMode && 'text-white'}`}>Reviews(122)</div>
         </div>
         <div className="p-7 px-4 border text-sm text-gray-500 flex flex-col gap-5">
           <div>
